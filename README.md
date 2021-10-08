@@ -1,54 +1,146 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# Tutorial: Deploying a basic Gatsby app on Jekyo
 
-## 🚀 Quick start
+Demo app [here](https://gatsby-demo.jekyo.app/)
 
-1.  **Create a Gatsby site.**
+### Prerequisites
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+Make sure you have [NodeJS](https://nodejs.org/en/download/), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [git](https://github.com/git-guides/install-git) installed.
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+If it's your first time using **Jekyo**, you can **install** it by running the following command in your terminal:
 
-2.  **Start developing.**
+`npm install -g jekyo`
 
-    Navigate into your new site’s directory and start it up.
+### Sign in to Jekyo
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+You can sign in to Jekyo by running `jekyo user:signin`
 
-3.  **Open the code and start customizing!**
+```
+➜  ~ jekyo user:signin 
+Your email?: **************
+Your password?: **********
+You have successfully signed in!
+```
+If you don't have a Jekyo account, you can create one in the terminal by running `jekyo user:signup`. 
 
-    Your site is now running at http://localhost:8000!
+## 1. Create a basic Gatsby app
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+You can start your Gatsby project by using `jekyo create`
 
-4.  **Learn more**
+Using the **arrows** on your keyboard, select **gatsby** and press **enter**.  
+```
+? Select template
+  None Creates only the application
+  expressjs A basic app skeleton using [Express](https://expressjs.com/)     
+  nuxt-js A boilerplate SSR application using [Nuxt.js](https://nuxtjs.org/) 
+❯ gatsby A basic starter app using [gatsby](https://www.gatsbyjs.com/)
+```
+When prompted, enter the desired name for your Gatsby app. 
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+`Application name?: gatsby-tutorial`
 
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+This will create a basic Gatsby app in the current directory by cloning this [gatsby starter app](https://github.com/jekyo/gatsby-getting-started) repository.
 
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+```
+Cloning source code... OK
+Application created!
+```
 
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+### Deploy the Gatsby app on Jekyo
 
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+To deploy the app, first navigate to the newly created directory:
 
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+`cd gatsby-tutorial`
 
-## 🚀 Quick start (Gatsby Cloud)
+Now you can deploy this app to Jekyo by running: 
 
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
+`jekyo deploy`
 
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+After a while, you should see something like this:
+
+```
+➜  Fetching source code ... OK
+➜  Building application, this might take a while ... OK
+➜  Publishing application, this might take a while  ... OK
+➜  Deploying application ... OK        
+➜  Waiting for application to start ... OK
+➜  Visit your app on: https://gatsby-tutorial.jekyo.app ... OK
+```
+
+You can now browse to your Gatsby app on https://gatsby-tutorial.jekyo.app (replace 'gatsby-tutorial' with your app name)
+
+## 2. Deploying an existing Gatsby app
+
+Navigate to your local Gatsby app directory
+
+`cd my-gatsby-app`
+
+Initialize a git repository if you haven't already done so by running `git init`. 
+
+In your **package.json** file, edit the **start** line under **scripts** to look like this: 
+
+```
+"start": "gatsby serve --port $PORT --host $HOST",
+```
+This specifies necessary host and port variables for Jekyo.
+
+[Commit](https://github.com/git-guides/git-commit) the new change:
+
+```
+git add package.json
+git commit -m "modified start line in package.json"
+```
+
+
+### Create an empty Jekyo app:
+
+`jekyo create` 
+
+Select 'none' using the **arrows** on your keyboard and press **enter**. This will create an app using your current directory. 
+
+```
+? Select template (Use arrow keys)
+❯ None Creates an application from your current directory
+```
+
+Name your app: 
+
+`Application name?: my-gatsby-app`
+
+Run `jekyo link` to link your local app to the remote Jekyo app. Select 'my-gatsby-app' using the **arrows** on your keyboard and press **enter**.
+
+```
+? Select application (Use arrow keys)
+❯ my-gatsby-app
+```
+### Now you can deploy this app to Jekyo by running: 
+
+`jekyo deploy`
+
+After a while, you should see something like this:
+
+```
+➜  Fetching source code ... OK
+➜  Building application, this might take a while ... OK
+➜  Publishing application, this might take a while  ... OK
+➜  Deploying application ... OK        
+➜  Waiting for application to start ... OK
+➜  Visit your app on: https://my-gatsby-app.jekyo.app ... OK
+```
+
+You can now browse to your Gatsby app on https://my-gatsby-app.jekyo.app (replace 'my-gatsby-app' with your app name)
+
+## Pushing local changes to Jekyo 
+
+Add the newly modified file(s) to the git index by using [git add](https://www.atlassian.com/git/tutorials/saving-changes)
+
+`git add filename`
+
+Create a [git commit](https://github.com/git-guides/git-commit)
+
+`git commit -m "your commit message"`
+
+Now, simply deploy your app again:
+
+`jekyo deploy`
+
+You will see your changes on your live app after a short while. 
